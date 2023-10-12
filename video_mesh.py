@@ -21,12 +21,13 @@ while True:
     # Обнаруживаем лица на кадре
     result = face_mesh.process(rgb_image)
 
-    for facial_landmarks in result.multi_face_landmarks:
-        for i in range(0, 468):
-            pt1 = facial_landmarks.landmark[i]
-            x = int(pt1.x * width)
-            y = int(pt1.y * height)
-            cv2.circle(frame, (x, y), 1, (100, 100, 0), -1)
+    if result.multi_face_landmarks is not None:
+        for facial_landmarks in result.multi_face_landmarks:
+            for i in range(0, 468):
+                pt1 = facial_landmarks.landmark[i]
+                x = int(pt1.x * width)
+                y = int(pt1.y * height)
+                cv2.circle(frame, (x, y), 1, (100, 100, 0), -1)
 
     # Отображаем результат
     cv2.imshow("Face Landmarks Detection", frame)
